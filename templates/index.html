@@ -57,29 +57,52 @@ body {
     max-width: 100%;
   }
 }
+
+ul.navBar {
+	padding:0;
+	list-style-type:none;
+}
+ul.navBar li {
+	display: inline;
+}
+
+ul.navBar  li a, ul.navBar li input {
+	/*background-color: #6E6E6E;*/
+	background-color:#6E7B91;
+	color: #FFF;
+	border: 1.5px solid #333;
+	font-size: 16px;
+	font-weight: 600;
+	padding: 1.5px 12px;
+	margin: 0 4px;
+	text-decoration: none;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: 0 0 5px 0 gray;
+	-moz-box-shadow: 0 0 5px 0 gray;
+	-webkit-box-shadow: 0 0 5px 0 gray;	
+}
+
+
+ul.navBar a:hover, ul.navBar a:focus {
+	background-color: #FFF;
+	color: #6E7B91;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
 </style>
-<!--style>
-* {
-  box-sizing: border-box;
-}
-
-.column {
-  float: left;
-  width: 33.33%;
-  padding: 5px;
-}
-
-/* Clearfix (clear floats) */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-  word-wrap: break-word;    
-}
-</style-->
 </head>
 <body>
-  <a href="{{ url_for('show_index') }}"><button>REFRESH</button></a>
+  <form id="myform" action="{{ url_for('show_index') }}" method="post">
+  <ul class="navBar">
+  <li><a rel="prev" onclick="document.getElementById('selectedK').stepDown(); document.getElementById('myform').submit(); return false;" accesskey="p">&lt; Prev</a></li>
+  <li><a href="{{ url_for('show_index') }}">Random</a></li>
+  <li> <input type="number" min="0" max="{{ nb_comps }}" step="1" name="selected" id="selectedK" value="{{ selected }}"></li>
+  <li><a rel="next" onclick="document.getElementById('selectedK').stepUp(); document.getElementById('myform').submit(); return false;" accesskey="n">Next &gt;</a></li>
+  </ul>
+  </form>
 
   <div class="row">
     <div class="column">
