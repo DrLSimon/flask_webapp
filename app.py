@@ -16,6 +16,21 @@ def validate_url(urls):
             valid_urls.append(url)
     return valid_urls
 
+def url_checker(url):
+    try:
+        #Get Url
+        get = requests.get(url)
+        # if the request succeeds 
+        if get.status_code == 200:
+            return True
+        else:
+            return False
+
+    #Exception
+    except requests.exceptions.RequestException as e:
+        return False
+
+
 @app.route('/')
 @app.route('/index')
 def show_index():
@@ -29,9 +44,10 @@ def show_index():
     comps = [comp for comp in comps if len(comp)>=4]
     nb_comps = len(comps)
     k = int(np.random.choice(nb_comps, 1))
-    left_image_url, right_image_url = comps[k][0:2]
-    left_image_url_2, right_image_url_2 = comps[k][2:4]
-    return render_template("index.html", left_image_url=left_image_url, right_image_url=right_image_url, left_image_url_2=left_image_url_2, right_image_url_2=right_image_url_2)
+    the_comp = comps[k]
+    original = the_comp[0]
+    dup_urls = [url for url in the_comp[1:] if url_checker(url)]
+    return render_template("index.html", original_url=original, dup_urls=dup_urls)
 
 if __name__ == '__main__':
     app.run()

@@ -8,6 +8,61 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  font-family: Arial;
+}
+
+.header {
+  text-align: center;
+  padding: 32px;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+  max-width: 25%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+  .column {
+    -ms-flex: 50%;
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+</style>
+<!--style>
+* {
+  box-sizing: border-box;
+}
+
 .column {
   float: left;
   width: 33.33%;
@@ -21,7 +76,7 @@
   display: table;
   word-wrap: break-word;    
 }
-</style>
+</style-->
 </head>
 <body>
   <a href="{{ url_for('show_index') }}"><button>REFRESH</button></a>
@@ -29,30 +84,20 @@
   <div class="row">
     <div class="column">
       <figure>
-        <img src="{{ left_image_url }}" alt="Left" style="width:100%">
-        <figcaption><a href="{{ left_image_url }}">Left URL</a></figcaption>
-      </figure>
-    </div>
-    <div class="column">
-      <figure>
-        <img src="{{ right_image_url }}" alt="Right" style="width:100%">
-        <figcaption><a href="{{ right_image_url }}">Right URL</a></figcaption>
+        <img src="{{ original_url }}" alt="Original" style="width:100%">
+        <figcaption><a href="{{ original_url }}">Original URL</a></figcaption>
       </figure>
     </div>
   </div>
   <div class="row">
+    {% for url in dup_urls %}
     <div class="column">
       <figure>
-        <img src="{{ left_image_url_2 }}" alt="Left" style="width:100%">
-        <figcaption><a href="{{ left_image_url_2 }}">Left URL</a></figcaption>
+        <img src="{{ url }}" alt="Duplicate Unreachable" style="width:100%">
+        <figcaption><a href="{{ url }}">Dup URL</a></figcaption>
       </figure>
     </div>
-    <div class="column">
-      <figure>
-        <img src="{{ right_image_url_2 }}" alt="Right" style="width:100%">
-        <figcaption><a href="{{ right_image_url_2 }}">Right URL</a></figcaption>
-      </figure>
-    </div>
+    {% endfor %}
   </div>
 </body>
 </html>
